@@ -1,13 +1,26 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-//官方元件
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HelloWorld from "@/components/HelloWorld";
+import Login from "@/components/pages/Login";
 
-//import Home from '@/components/HelloWorld';
-//自訂的分頁元件
 
 Vue.use(VueRouter);
 
-export default new VueRouter({
+const routes = [
+  {
+    path: "/",
+    name: "HelloWorld",
+    component: HelloWorld,
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: Login,
+  },
+];
 
+const router = new VueRouter({
+  routes,
 });
 
+export default router;
