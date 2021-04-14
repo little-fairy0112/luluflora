@@ -1,19 +1,18 @@
 <template>
   <div id="app">
-  <div class="bg-lightbrown py-2">
-      <div class="container text-end">
-        <a href="#" style="color: #42302d;"><i class="fab fa-facebook"></i></a>
-        <a href="#" style="color: #42302d;"><i class="fab fa-instagram"></i></a>
-      </div>
+    <div class="bg-lightbrown py-2">
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
-        <div class="container">
-        <a class="navbar-brand" href="#"><img src="@/assets/pic/luluflora.png" width="180"></a>
+      <div class="container">
+        <a class="navbar-brand" href="#">
+          <img src="@/assets/pic/luluflora.png" width="180">
+        </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon">
+          </span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav me-auto">
+          <ul class="navbar-nav mr-auto">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="#">首頁</a>
             </li>
@@ -22,84 +21,219 @@
                 經典款式
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li><a class="dropdown-item" href="#">花束款式</a></li>
-                <li><a class="dropdown-item" href="#">植栽款式</a></li>
-                <li><a class="dropdown-item" href="#">活動佈置樣式</a></li>
+                <li>
+                  <a class="dropdown-item" href="#">花束款式
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">植栽款式
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#">活動佈置樣式
+                  </a>
+                </li>
               </ul>
             </li>
           </ul>
           <form class="form-inline d-flex">
-            <a href="#" class="btn btn-outline-style me-1 text-brown"  data-bs-toggle="modal" data-bs-target="#loginModal">登入</a>
+            <router-link to="/login/"><a href="#" class="btn btn-outline-style mr-1 text-brown"  data-bs-toggle="modal" data-bs-target="#loginModal">登入</a></router-link>
             <a href="#" class="btn btn-outline-style text-brown"  data-bs-toggle="modal" data-bs-target="#registerModal">註冊</a>
           </form>
         </div>
       </div>
     </nav>
 
-  <header>
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-indicators">
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="3" aria-label="Slide 4"></button>
-        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="4" aria-label="Slide 5"></button>
-      </div>
-      <div class="carousel-inner">
-        <div class="carousel-item header-carousel-item active" :style="{backgroundImage: 'url(' + bg1 + ')'}">
-        </div>
-        <div class="carousel-item header-carousel-item" :style="{backgroundImage: 'url(' + bg2 + ')'}">
-        </div>
-        <div class="carousel-item header-carousel-item" :style="{backgroundImage: 'url(' + bg3 + ')'}">
-        </div>
-        <div class="carousel-item header-carousel-item" :style="{backgroundImage: 'url(' + bg4 + ')'}">
-        </div>
-        <div class="carousel-item header-carousel-item" :style="{backgroundImage: 'url(' + bg5 + ')'}">
-        </div>
-      </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"  data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-  </header>
+    <div>
+      <b-carousel
+        id="carousel-1"
+        v-model="slide"
+        :interval="4000"
+        controls
+        indicators
+        background="#ababab"
+        img-width="1024"
+        img-height="480"
+        style="text-shadow: 1px 1px 2px #333;"
+      >
 
-  <section class="bg-lightbrown py-5 text-brown">
-    <div class="container">
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="480"
+              src="@/assets/pic/flower1x.jpg"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="480"
+              src="@/assets/pic/flower2x.jpg"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="480"
+              src="@/assets/pic/flower3x.jpg"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="480"
+              src="@/assets/pic/flower4x.jpg"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+
+        <b-carousel-slide>
+          <template #img>
+            <img
+              class="d-block img-fluid w-100"
+              width="1024"
+              height="480"
+              src="@/assets/pic/flower5x.jpg"
+              alt="image slot"
+            >
+          </template>
+        </b-carousel-slide>
+      </b-carousel>
+
+    </div>
+
+    <section class="bg-lightbrown py-5 text-brown">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="mb-3">
+              <font-awesome-icon :icon="['fas', 'hand-holding-heart']" size="5x" />
+            </div>
+            <h3>遇見花，找到愛</h3>
+            <p>在特別的日子，用花語對心儀的她說出我愛妳，讓她感受到您真摯的情意，一起沉浸在浪漫氛圍。</p>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <font-awesome-icon :icon="['fas', 'smile']" size="5x" />
+            </div>
+            <h3>把繁忙放下，帶花回家</h3>
+            <p>沈悶而快速的生活步調，讓您忘了微笑嗎？<br>帶一束鮮花回家，好心情與您相隨。</p>
+          </div>
+          <div class="col-md-4">
+            <div class="mb-3">
+              <font-awesome-icon :icon="['fas', 'seedling']" size="5x" />
+            </div>
+            <h3>浪漫生活，從花開始</h3>
+            <p>不用百萬裝潢，一點點花藝的點綴，就能夠讓家裡看起來更不一樣！</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="container-fluid py-5 bg-light text-lightbrown position-relative">
       <div class="row">
-        <div class="col-md-4">
-          <div class="mb-3"><i class="fas fa-hand-holding-heart fa-5x"></i></div>
-          <h3>遇見花，找到愛</h3>
-          <p>在特別的日子，用花語對心儀的她說出我愛妳，讓她感受到您真摯的情意，一起沉浸在浪漫氛圍。</p>
-        </div>
-        <div class="col-md-4">
-          <div class="mb-3"><i class="far fa-smile fa-5x"></i></div>
-          <h3>把繁忙放下，帶花回家</h3>
-          <p>沈悶而快速的生活步調，讓您忘了微笑嗎？<br>帶一束鮮花回家，好心情與您相隨。</p>
-        </div>
-        <div class="col-md-4">
-          <div class="mb-3"><i class="fas fa-seedling fa-5x"></i></div>
-          <h3>浪漫生活，從花開始</h3>
-          <p>不用百萬裝潢，一點點花藝的點綴，就能夠讓家裡看起來更不一樣！</p>
+        <div class="col-md-5 bg-cover position-absolute nopadding">
+          <img
+            class="d-block img-fluid w-100"
+            width="537"
+            height="466"
+            src="@/assets/pic/girlnflowerx.jpg"
+            alt="image slot"
+          >
         </div>
       </div>
-    </div>
-  </section>
+      <div class="container">
+        <div class="row justify-content-end text-md-dark">
+          <div class="col-md-7" style="z-index:999;">
+            <h3>來到LuLu花藝</h3>
+            <p>
+              <br>
+              我們對花藝極緻優雅的追求，建立雋永的生活美學。<br>
+              <br>
+              將歐式花藝設計融入生活美學、結合創意，<br>
+              <br>
+              賦予不同的美學觀點，帶給大家新的生活響宴。
+            </p>
+            <a href="#" class="btn btn-outline-style">Buy Now...</a>
 
-  </div>  
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <h3>花藝設計 Floral Design</h3>
+                <p>花束｜盆花｜花禮盒｜植栽｜乾燥花｜客製化花禮</p>
+              </div>
+              <div class="col-md-6">
+                <h3>活動 Event</h3>
+                <p>活動場地佈置｜開幕喬遷｜新娘捧花｜花藝佈置</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.274905273171!2d121.55765031433127!3d25.05866998396082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAzJzMxLjIiTiAxMjHCsDMzJzM1LjQiRQ!5e0!3m2!1szh-TW!2stw!4v1616406120080!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
+            </iframe>
+          </div>
+
+          <div class="col-md-6 d-flex flex-column justify-content-between LeftSize">
+            <div class="FBsize">
+              <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLuLu-Flora-102837471934455&tabs&width=500&height=250&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId" width="500" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+            </div>
+            <div class="QRcodeSize d-flex flex-row">
+              <div class="pt-100">
+                <img
+                  class="d-block img-fluid w-100"
+                  src="@/assets/pic/qr-code.jpg"
+                  alt="QRcode"
+                >
+              </div>
+              <div class="font-20 text-brown d-flex align-items-end">
+                <p class="">LINE QR Code</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-brown text-lightbrown py-3">
+      <div class="text-center px-3 " style="list-style: none;">
+        <h4>LuLu Flora</h4>
+        <ul class="nondot">
+          <li><font-awesome-icon :icon="['fas', 'clock']" />週一至週六，10：00 am - 18：00 pm</li>
+          <li><font-awesome-icon :icon="['fas', 'map-marker-alt']" />台北市松山區民生東路五段117-85</li>
+          <li><font-awesome-icon :icon="['fas', 'phone']" />(02) 2323-1234</li>
+        </ul>
+      </div>
+    </footer>
+
+  </div>
 </template>
 
 <script>
-import BG1 from '@/assets/pic/flower1.jpg';
-import BG2 from '@/assets/pic/flower2.jpg';
-import BG3 from '@/assets/pic/flower3.jpg';
-import BG4 from '@/assets/pic/flower4.jpg';
-import BG5 from '@/assets/pic/flower5.jpg';
-
 export default {
   name: "App",
   created() {
@@ -112,21 +246,19 @@ export default {
   },
   data(){
     return {
-      bg1: BG1,
-      bg2: BG2,
-      bg3: BG3,
-      bg4: BG4,
-      bg5: BG5,
+      slide: 0,
+      sliding: null
     }
-  },
-  components: {
   },
 };
 </script>
 
 <style lang="scss">
-@import "./assets/all";
+@import "/assets/all";
 @import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
+
 
 .btn{
   border: 2px solid #e1dbd1;
@@ -180,6 +312,38 @@ export default {
 .position-relative{
   position:relative;
 }
+
+.position-absolute{
+  position:absolute;
+  top:0; 
+  bottom: 0;
+}
+
+.nopadding {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.nondot {
+  list-style-type: none;
+}
+
+.LeftSize{
+  height:400px;
+}
+
+.FBsize{
+  height:130px;
+}
+
+.QRcodeSize{
+  height:250px;
+}
+
+.font-20{
+  font-size:20px;
+}
+
 
 @media (min-width: 768px) {
   .text-md-dark{
