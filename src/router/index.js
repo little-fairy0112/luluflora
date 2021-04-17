@@ -10,17 +10,15 @@ Vue.use(VueRouter);
 export default new VueRouter({
   routes: [
     {
-      name: "home", //元件呈現的名稱
+      name: "首頁", //元件呈現的名稱
       path: "/", //對應的虛擬路徑
       component: Home, //對應的元件
-      children: [
-        {
-          name: "Login", //元件呈現的名稱
-          path: "/login", //對應的虛擬路徑
-          component: Login, //對應的元件
-        },
-      ]
     },
-  ]
+    {
+      name: "登入", //元件呈現的名稱
+      path: "/login", //對應的虛擬路徑
+      component: Login, //對應的元件
+    },
+  ],
 });
 
