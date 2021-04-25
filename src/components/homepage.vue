@@ -1,10 +1,13 @@
 <template>
   <div class="hello">
-     <div class="bg-lightbrown py-2">
+    <div class="bg-lightbrown d-flex justify-content-end">
+      <div class="pr-3">
+        <router-link to="/login" class="mr-1 text-brown font-size-small">Admin</router-link>
+      </div>
     </div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-brown">
       <div class="container">
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand padding-none" href="#">
           <img src="@/assets/pic/luluflora.png" width="180">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,10 +15,7 @@
           </span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">首頁</a>
-            </li>
+          <ul class="navbar-nav">
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 經典款式
@@ -35,18 +35,13 @@
                 </li>
               </ul>
             </li>
-          </ul>
-          <form class="form-inline d-flex">
-            <router-link to="/login/" class="btn btn-outline-style mr-1 text-brown">登入</router-link>      
-            <a href="#" class="btn btn-outline-style text-brown"  data-bs-toggle="modal" data-bs-target="#registerModal">註冊</a>
-          </form>   
+          </ul>  
         </div>
       </div>
     </nav>
     <div>
       <b-carousel
         id="carousel-1"
-        v-model="slide"
         :interval="4000"
         controls
         indicators
@@ -171,7 +166,7 @@
               <br>
               賦予不同的美學觀點，帶給大家新的生活響宴。
             </p>
-            <a href="#" class="btn btn-outline-style">Buy Now...</a>
+            <router-link to="/login" class="btn btn-outline-style mr-1 text-brown">Buy Now...</router-link>
 
             <div class="row mt-4">
               <div class="col-md-6">
@@ -199,7 +194,7 @@
 
           <div class="col-md-6 d-flex flex-column justify-content-between LeftSize">
             <div class="FBsize">
-              <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLuLu-Flora-102837471934455&tabs&width=500&height=250&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId" width="500" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+              <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FLuLu-Flora-102837471934455&tabs&width=500&height=250&small_header=false&adapt_container_width=false&hide_cover=false&show_facepile=false&appId" width="500" height="250" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture;"></iframe>
             </div>
             <div class="QRcodeSize d-flex flex-row">
               <div class="pt-100">
@@ -228,27 +223,12 @@
         </ul>
       </div>
     </footer>
-    <router-view/>
   </div>
 </template>
 
 <script>
 export default {
   name: "HelloWorld",
-  created() {
-    const api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/products`;
-    // API伺服器路徑
-    // 所申請的API Path
-    this.$http.get(api).then((response) => {
-      console.log(response.data);
-    });
-  },
-  data(){
-    return {
-      slide: 0,
-      sliding: null
-    }
-  },
 };
 </script>
 
@@ -343,6 +323,14 @@ export default {
   font-size:20px;
 }
 
+.font-size-small{
+  font-size: 8px;
+}
+
+.padding-none{
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
 
 @media (min-width: 768px) {
   .text-md-dark{

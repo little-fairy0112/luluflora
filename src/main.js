@@ -31,9 +31,35 @@ library.add(faClock);
 library.add(faPhone);
 library.add(faMapMarkerAlt);
 
+axios.defaults.withCredentials = true;
 
 
 new Vue({
   render: (h) => h(App),
   router,
 }).$mount("#app");
+
+
+router.beforeEach((to, from, next) => {
+  console.log('to',to,'from',from,'next',next);
+  //假設要到達的頁面(to)的meta具有requireauth的話 將不會放行
+  if(to.meta.requiresAuth){
+    const api = `${process.env.VUE_APP_APIPATH}/api/user/check`;
+      axios.post(api).then((response) => {
+        console.log(response.data);
+        //如果登入狀態為success，則router路由的路徑回到首頁
+        if (response.data.success) {
+          next();
+          alert('登入成功');
+        }else{
+          next({
+            path:'/login',
+          });
+          alert('尚未登入');
+        }
+      });
+  }else{
+    next();
+  }
+});
+
