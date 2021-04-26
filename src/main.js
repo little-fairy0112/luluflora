@@ -50,12 +50,11 @@ router.beforeEach((to, from, next) => {
         //如果登入狀態為success，則router路由的路徑回到首頁
         if (response.data.success) {
           next();
-          alert('登入成功');
         }else{
+          alert('尚未登入');
           next({
             path:'/login',
           });
-          alert('尚未登入');
         }
       });
   }else{

@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "@/components/homepage";
 import Login from "@/components/pages/login";
-import Buy from "@/components/pages/buy";
 import Admin from "@/components/pages/Admin";
 import product from "@/components/product";
 
@@ -24,12 +23,6 @@ export default new VueRouter({
       name: "登入", //元件呈現的名稱
       path: "/login", //對應的虛擬路徑
       component: Login, //對應的元件
-    },
-    {
-      name: "產品目錄",
-      path: "/buy",
-      component: Buy,
-      meta: { requiresAuth: true },
     },
     {
       name: "管理",

@@ -166,7 +166,7 @@
               <br>
               賦予不同的美學觀點，帶給大家新的生活響宴。
             </p>
-            <router-link to="/login" class="btn btn-outline-style mr-1 text-brown">Buy Now...</router-link>
+            <button class="btn btn-outline-style mr-1 text-brown">Buy Now...</button>
 
             <div class="row mt-4">
               <div class="col-md-6">
