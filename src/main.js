@@ -13,6 +13,7 @@ import { faSeedling } from '@fortawesome/free-solid-svg-icons'
 import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
+import 'bootstrap';
 
 
 
@@ -51,7 +52,6 @@ router.beforeEach((to, from, next) => {
         if (response.data.success) {
           next();
         }else{
-          alert('尚未登入');
           next({
             path:'/login',
           });

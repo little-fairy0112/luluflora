@@ -71,7 +71,7 @@ export default {
         console.log(response.data);
         //如果登入狀態為success，則router路由的路徑回到首頁
         if (response.data.success) {
-        vm.$router.push('/Admin');
+        vm.$router.push('/Admin/product').catch(()=>{});;
         }
       });
     },
