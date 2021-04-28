@@ -31,7 +31,7 @@ export default new VueRouter({
       meta: { requiresAuth: true },
       children: [
         {
-          path: "/product",
+          path: "product",
           name: "產品項目管理",
           component: product,
           meta: { requiresAuth: true },

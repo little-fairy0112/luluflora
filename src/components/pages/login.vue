@@ -64,14 +64,14 @@ export default {
   },
   methods: {
     signin(){
-      const api = `${process.env.VUE_APP_APIPATH}/signin`;
+      const api = `${process.env.VUE_APP_APIPATH}/admin/signin`;
       const vm = this;
       //vm.user為使用者輸入的username與password
       this.$http.post(api, vm.user).then((response) => {
         console.log(response.data);
         //如果登入狀態為success，則router路由的路徑回到首頁
         if (response.data.success) {
-        vm.$router.push('/Admin').catch(()=>{});;
+        vm.$router.push('/Admin/product').catch(()=>{});;
         }
       });
     },
