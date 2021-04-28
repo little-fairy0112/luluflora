@@ -1,6 +1,8 @@
 import Vue from "vue";
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import App from "./App.vue";
 import router from './router';
@@ -20,6 +22,7 @@ import 'bootstrap';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
+Vue.component('Loading', Loading);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 library.add(faUserSecret);

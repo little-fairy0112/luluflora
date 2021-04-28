@@ -1,5 +1,6 @@
 <template>
     <div>
+         <loading v-model:active="isLoading"></loading>
         <div class="text-right mt-4">
             <button class="btn btn-primary" @click="openModal(true)">建立新的產品</button>
         </div>
@@ -158,6 +159,7 @@ export default {
             products: [],
             tempProduct: {}, // 即將要送出的欄位內容
             isNew: false,
+            isLoading: false,
         };
     },
     methods:{
@@ -167,8 +169,10 @@ export default {
             // API伺服器路徑
             // 所申請的API Path
             console.log(process.env.APIPATH, process.env.CUSTOMPATH);
+            vm.isLoading = true;
             this.$http.get(api).then((response) => {
                 console.log(response.data);
+                vm.isLoading = false;
                 vm.products = response.data.products;
             });
         },
@@ -206,6 +210,21 @@ export default {
         },
         uploadFile() {
             console.log(this);
+            const uploadedFile = this.$refs.files.files[0];  //已上傳的檔案置於this.$refs.files.files 將此檔案取出來
+            const vm = this;
+            const formData = new FormData();  //建立一個formdata物件
+            FormData.append('file-to-upload', uploadFile);   //將formdata加進去
+            const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+            this.$http.post(url, formData,{                //將formdata送出
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }),then((response) => {
+                console.log(response.data);
+                if(response.data.success){
+                    vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+                }
+            })
         },
     },
     created() {
