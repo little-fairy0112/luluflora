@@ -17,12 +17,15 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap';
 
+import currencyFilter from '@/filters/currency';
+
 
 
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.component('Loading', Loading);
+Vue.filter('currency', currencyFilter);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
 library.add(faUserSecret);
