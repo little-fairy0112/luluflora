@@ -189,7 +189,7 @@ export default {
     },
     methods:{
         getProducts(page = 1) {
-            const api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/products?page=:page=${page}`;
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product?page=:page=${page}`;
             const vm = this;
             // API伺服器路徑
             // 所申請的API Path

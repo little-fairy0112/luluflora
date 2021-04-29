@@ -71,7 +71,11 @@ export default {
         console.log(response.data);
         //如果登入狀態為success，則router路由的路徑回到首頁
         if (response.data.success) {
-        vm.$router.push('/Admin/product').catch(()=>{});;
+          const token = response.data.token;
+          const expired = response.data.expired;
+          console.log(token,expired);
+          document.cookie = `hexToken=${token}; expires=${ new Date(expired)};`;
+          vm.$router.push('/admin/product');
         }
       });
     },
