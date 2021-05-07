@@ -4,7 +4,7 @@
     <div class = "row mt-4">
       <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
         <div class="card border-0 shadow-sm">
-          <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundUmage: `url(${item.imageUrl})`}">
+          <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage: `url(${item.imageUrl})`}">
           </div>
           <div class="card-body">
             <span class="badge badge-secondary float-right ml-2">{{item.category}}</span>
@@ -14,43 +14,111 @@
             <p class="card-text">{{item.content}}</p>
             <div class="d-flex justify-content-between align-items-baseline">
               <div class="h5" v-if="!item.price">{{item.origin_price}}</div>
-              <del class="h6" v-if="item.price">{{item.origin_price}}</del>
-              <div class="h5" v-if="item.price">{{item.price}}</div>
+              <del class="h6" v-if="item.price">原價 {{item.origin_price}}</del>
+              <div class="h5" v-if="item.price">現在只要 {{item.price}}</div>
             </div>
           </div>
           <div class="card-footer d-flex">
-            <button type="button" class="btn btn-outline-secondary btn-sm">
-              <i class="fas fa-spinner fa-spin"></i>
+            <button type="button" class="btn btn-outline-secondary btn-sm"
+            @click="get_single_Product(item)">
+              <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
               查看更多
             </button>
-            <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
-              <i class="fas fa-spinner fa-spin"></i>
+            <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
+            @click="addtoCart(item.id)">
+              <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
               加到購物車
             </button>
           </div>
         </div>
       </div>
-    </div>  
+    </div> 
+
+    <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden = "true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">{{ product.title}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <img :src="product.image" class="img-fluid" alt="">
+            <blockquote class="blockquote mt-3">
+              <p class="mb-0">{{product.content}}</p>
+              <footer class="blockquote-footer text-right">{{product.description}}</footer>
+            </blockquote>  
+            <div class="d-flex justify-content-between align-items-baseline">
+              <div class="h4" v-if="!product.price">{{product.origin_price}} 元</div>
+              <div class="h6" v-if="product.price">原價 {{product.origin_price}} 元</div>
+              <div class="h4" v-if="product.price"> 現在只要 {{product.price}} 元</div>
+            </div>
+            <select name="" class="form-control mt-3" v-model="product.num">
+              <option value="1">
+                選購1件
+              </option>  
+            </select>
+            <div class="modal-footer">
+              <div class="text-muted text-nowrap mr-3">
+                小計 <strong>{{product.unm * product.price}}</strong> 元
+              </div>
+              <button type="button" class="btn btn-primary">
+                加到購物車
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>  
+     </div>   
   </div>
 </template>
 
 <script>
+import $ from 'jquery';
 export default {
     data () {
         return {
             products: [],
+            product: {},
+            status: {
+              loadingItem: '',  //判斷目前畫面上是哪一個元素正在讀取中
+            },
             isLoading: false,
         };
     },
     methods:{
       getProducts() {
         const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products`;
-        vm.isLoading = true;
-        this.$http.get(api).then((response) => {
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
+        vm.status.loadingItem = id;
+        this.$http.get(api).then((response) => { 
             console.log(response);
             vm.products = response.data.products;
-            vm.isLoading = false;
+            vm.status.loadingItem = '';
+        });
+      },
+      get_single_Product(id) {
+        const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
+        vm.status.loadingItem = id;
+        this.$http.get(api).then((response) => {
+            vm.product = response.data.product;
+            $('#productModal').modal('show');
+            vm.status.loadingItem = '';
+        });
+      },
+      addtoCart(id, qty = 1){ //如果沒有帶入qty，就會使qty預設值為1
+        const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+        vm.status.loadingItem = id;
+        const cart ={
+          product_id: id,
+          qty
+
+        }
+        this.$http.post(api,{ data: cart}).then((response) => {
+            vm.status.loadingItem = '';
         });
       },
     },
