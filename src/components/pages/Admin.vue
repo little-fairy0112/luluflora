@@ -1,21 +1,20 @@
 <template>
     <div>
         <Alert></Alert>
-        <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 margin-none" href="#">Company name</a>
-            <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
-                <ul class="navbar-nav px-3">
-                    <li class="nav-item text-nowrap">
-                        <a class="nav-link" href="#">Sign out</a>
-                    </li>
-                </ul>
-        </header>
+
+        <nav class="navbar navbar-dark bg-brown">
+            <div class="container-fluid">
+                <a class="navbar-brand padding-none" href="#">
+                    <img src="@/assets/pic/luluflora.png" width="180">
+                </a>
+                <div>
+                    <a href="#" class="btn btn-outline-style mr-1 text-lightbrown" @click.prevent="Logout">登出</a>
+                </div>
+            </div>
+        </nav>
         <div class="container-fluid">
             <div class="row">
-                <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse padding-top-none">
+                <nav id="sidebarMenu" class="bg-lightbrown col-md-3 col-lg-2 d-md-block sidebar collapse padding-top-none">
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
@@ -40,7 +39,8 @@
                         </ul>
                     </div>
                 </nav>
-                <main class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <main class="bg-lightbrown col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                    <router-view></router-view>
                 </main>
             </div>
         </div>
@@ -49,11 +49,23 @@
 
 <script>
 import Alert from '@/components/AlertMessage';
-import '@/bus.js';
+
 
 export default{
     components: {
         Alert,
+    },
+    methods: {
+        Logout(){
+            const api = `${process.env.VUE_APP_APIPATH}/logout`;
+            const vm = this;
+            this.$http.post(api).then((response) => {
+                console.log(response.data);
+                if (response.data.success) {
+                    vm.$router.push('/login').catch(()=>{});
+                }
+            });
+        },
     },
     created() {
         const cookieValue = document.cookie
@@ -61,7 +73,7 @@ export default{
         .find(row => row.startsWith('hexToken='))
         .split('=')[1];
         this.$http.defaults.headers.common.Authorization = cookieValue;
-    }
+    },
 };
 </script>
 
@@ -85,5 +97,11 @@ export default{
 .padding-top-none{
     padding-top: 0px !important;
 }
+
+.bg-brown{
+    background-color: #42302d;
+}
+
+
 </style>
 

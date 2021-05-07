@@ -3,7 +3,11 @@ import VueRouter from "vue-router";
 import Home from "@/components/homepage";
 import Login from "@/components/pages/login";
 import Admin from "@/components/pages/Admin";
-import product from "@/components/product";
+import products from "@/components/product";
+import Buy from "@/components/pages/buy";
+import Bonquet from "@/components/pages/bonquet";
+import Potted_Flower from "@/components/pages/potted_flower";
+import Wreath from "@/components/pages/wreath";
 
 
 Vue.use(VueRouter);
@@ -28,13 +32,34 @@ export default new VueRouter({
       name: "管理",
       path: "/admin",
       component: Admin,
-      meta: { requiresAuth: true },
       children: [
         {
-          path: "product",
+          path: "products",
           name: "產品項目管理",
-          component: product,
-          meta: { requiresAuth: true },
+          component: products,
+        },
+      ],
+    },
+    {
+      name: "商品頁面",
+      path: "/buy",
+      component: Buy,
+      meta: { requiresAuth: false },
+      children: [
+        {
+          path:"bonquet",
+          name: "花束商品",
+          component: Bonquet,
+        },
+        {
+          path:"potted_flower",
+          name: "植栽商品",
+          component: Potted_Flower,
+        },
+        {
+          path:"wreath",
+          name: "花環商品",
+          component: Wreath,
         },
       ],
     },

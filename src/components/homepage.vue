@@ -22,16 +22,13 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                 <li>
-                  <a class="dropdown-item" href="#">花束款式
-                  </a>
+                  <router-link to="/buy/bonquet" class="dropdown-item" href="#">花束</router-link>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">植栽款式
-                  </a>
+                  <router-link to="/buy/potted-flower" class="dropdown-item" href="#">植栽</router-link>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#">活動佈置樣式
-                  </a>
+                  <router-link to="/buy/wreath" class="dropdown-item" href="#">花環</router-link>
                 </li>
               </ul>
             </li>
@@ -166,7 +163,7 @@
               <br>
               賦予不同的美學觀點，帶給大家新的生活響宴。
             </p>
-            <button class="btn btn-outline-style mr-1 text-brown">Buy Now...</button>
+            <router-link to="/buy" class="btn btn-outline-style mr-1 text-brown">Buy Now...</router-link>
 
             <div class="row mt-4">
               <div class="col-md-6">

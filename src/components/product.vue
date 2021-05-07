@@ -1,6 +1,6 @@
 <template>
     <div>
-         <loading :active.sync="isLoading"></loading>
+        <loading :active.sync="isLoading"></loading>
         <div class="text-right mt-4">
             <button class="btn btn-primary" @click="openModal(true)">建立新的產品</button>
         </div>
@@ -34,24 +34,23 @@
 
         <nav aria-label="Page navigation example">
             <ul class="pagination">
-                <li class="page-item" :class="{'disabled': !pagination.has_pre}">
-                    <a class="page-link" href="#" aria-label="Previous"
-                    @click.prevent="getProducts(pagination.current_page - 1)">
+                <li class="page-item" :class="{'disabled': !pagination.has_pre }">
+                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="getProducts(pagination.current_page - 1)">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
                 <li class="page-item" v-for="page in pagination.total_pages" :key="page"
-                    :class="{'active':pagination.current_page === page}">
+                    :class="{'active': pagination.current_page == page}">
                     <a class="page-link" href="#" @click.prevent="getProducts(page)">{{ page }}</a>
                 </li>
-                <li class="page-item" :class="{'disabled': !pagination.has_next}">
-                    <a class="page-link" href="#" aria-label="Next"
-                    @click.prevent="getProducts(pagination.current_page + 1)">
+                <li class="page-item" :class="{'disabled': !pagination.has_next }">
+                    <a class="page-link" href="#" aria-label="Next" @click.prevent="getProducts(pagination.current_page + 1)">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
             </ul>
         </nav>
+
         <div class="modal fade" id="productModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -80,7 +79,7 @@
                                     ref="files" @change="uploadFile">
                                 </div>
                                 <img img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                                class="img-fluid" v-bind:src="tempProduct.imageUrl" alt="">
+                                class="img-fluid" :src="tempProduct.imageUrl" alt="">
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
@@ -129,7 +128,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" v-model="tempProduct.is_enabled" v-bind:true-value="1" v-bind:false-value="0"
+                                        <input class="form-check-input" type="checkbox" v-model="tempProduct.is_enabled" :true-value="1" :false-value="0"
                                         id="is_enabled">
                                             <label class="form-check-label" for="is_enabled">
                                                 是否啟用
@@ -184,12 +183,12 @@ export default {
             isLoading: false,
             status: {
                 fileUploading: false,
-            },
+            }
         };
     },
     methods:{
         getProducts(page = 1) {
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product?page=:page=${page}`;
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products?page=${page}`;
             const vm = this;
             // API伺服器路徑
             // 所申請的API Path
@@ -203,58 +202,58 @@ export default {
             });
         },
         openModal(isNew, item) {
-            if(isNew) {
+            if(isNew){
                 this.tempProduct = {};
                 this.isNew = true;
             }else{
-                this.tempProduct = Object.assign({}, item); //將item的值寫入空物件{}裡
+                this.tempProduct = Object.assign({},item); //Object.assign是es6寫法，可以將item內容寫入{}內
                 this.isNew = false;
             }
             $('#productModal').modal('show');
         },
         updateProduct() {
-            let api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
+            let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
             let httpMethod = 'post';
             const vm = this;
-            // API伺服器路徑
-            // 所申請的API Path
-            if(!vm.isNew) {
-                api = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`
+            if(!vm.isNew){
+                api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
                 httpMethod = 'put';
             }
-            this.$http[httpMethod](api, {data: vm.tempProduct }).then((response) => {
+            console.log(process.env.APIPATH, process.env.CUSTOMPATH);
+            this.$http[httpMethod](api, { data: vm.tempProduct }).then((response) => {
                 console.log(response.data);
-                if (response.data.success){
+                if(response.data.success){
                     $('#productModal').modal('hide');
                     vm.getProducts();
                 }else{
                     $('#productModal').modal('hide');
                     vm.getProducts();
-                    console.log('新增失敗');
+                    console.log('新增失敗 Q_Q');
                 }
+                //vm.products = response.data.products;
             });
         },
         uploadFile() {
-            console.log(this);
-            const uploadedFile = this.$refs.files.files[0];  //已上傳的檔案置於this.$refs.files.files 將此檔案取出來
+            const uploadFile = this.$refs.files.files[0];
             const vm = this;
-            const formData = new FormData();  //建立一個formdata物件
-            FormData.append('file-to-upload', uploadFile);   //將formdata加進去
-            const url = `${process.env.VUE_APP_APIPATH}api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
-            vm.status.fileUploading = true;
-            this.$http.post(url, formData,{                //將formdata送出
+            const formData = new FormData();
+            formData.append('file-to-upload', uploadFile); //formData.append功能為新增欄位，新增一個名字較file-to-upload的欄位，將uploadFile放進去
+            const url = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/upload`;
+            vm.status.fileUploading = true; //按下上傳按鈕為true
+            this.$http.post(url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            }),then((response) => {
+            }).then((response) => {
                 console.log(response.data);
-                vm.status.fileUploading = false;
-                if(response.data.success){
-                    vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl);
+                vm.status.fileUploading = false; //上傳完成為false
+                if (response.data.success){
+                    vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl); //強制寫入，確保有雙向榜定功能
+                    this.$bus.$emit('message:push', 'upload file success', 'success');
                 }else{
-                    this.$bus.$emit('message:push', response.data.message,'danger');
+                    this.$bus.$emit('message:push', response.data.message, 'danger');
                 }
-            })
+            });
         },
     },
     created() {
@@ -262,3 +261,6 @@ export default {
     },
 };    
 </script>
+
+<style>
+</style>

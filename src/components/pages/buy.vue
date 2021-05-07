@@ -1,29 +1,63 @@
 <template>
-    <a href="#" class="btn btn-outline-style mr-1 text-lightbrown" @click.prevent="signout">登出</a>
+  <div>
+    <loading :active.sync="isLoading"></loading>
+    <div class = "row mt-4">
+      <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
+        <div class="card border-0 shadow-sm">
+          <div style="height: 150px; background-size: cover; background-position: center">
+          </div>
+          <div class="card-body">
+            <span class="badge badge-secondary float-right ml-2">分類</span>
+            <h5 class="card-title">
+              <a href="#" class="text-dark">標題</a>
+            </h5>
+            <p class="card-text">內容</p>
+            <div class="d-flex justify-content-between align-items-baseline">
+              <!-- <div class="h5">2,800 元</div> -->
+              <del class="h6">原價 2,800 元</del>
+              <div class="h5">現在只要 1,400 元</div>
+            </div>
+          </div>
+          <div class="card-footer d-flex">
+            <button type="button" class="btn btn-outline-secondary btn-sm">
+              <i class="fas fa-spinner fa-spin"></i>
+              查看更多
+            </button>
+            <button type="button" class="btn btn-outline-danger btn-sm ml-auto">
+              <i class="fas fa-spinner fa-spin"></i>
+              加到購物車
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'Buy',
-  props: {
-    msg: String,
-  },
-  methods: {
-    signout(){
-      const api = `${process.env.VUE_APP_APIPATH}/logout`;
-      const vm = this;
-      //vm.user為使用者輸入的username與password
-      this.$http.post(api).then((response) => {
-        console.log(response.data);
-        //如果登入狀態為success，則router路由的路徑回到首頁
-        if (response.data.success) {
-        vm.$router.push('/');
-        alert('登出成功');
-        }
-      });
+    data () {
+        return {
+            products: [],
+            isLoading: false,
+        };
     },
-  },
-}
+    methods:{
+      getProducts() {
+        const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products/all`;
+        vm.isLoading = true;
+        this.$http.get(api).then((response) => {
+            console.log(response);
+            vm.products = response.data.products;
+            vm.isLoading = false;
+        });
+      },
+    },
+    created() {
+        this.getProducts();
+    },
+};    
 </script>
 
 <style>

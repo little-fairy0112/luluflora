@@ -16,11 +16,8 @@ import { faClock } from '@fortawesome/free-solid-svg-icons'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap';
-
 import currencyFilter from '@/filters/currency';
-
-
-
+import '@/bus.js';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);

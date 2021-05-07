@@ -16,16 +16,16 @@ export default {
   name: 'Navbar',
   data() {
     return {
-      messages: [],
+      messages: [],  //將messages一個一個陳列出來
     };
   },
   methods: {
     updateMessage(message, status) {
       const timestamp = Math.floor(new Date() / 1000);
       this.messages.push({
-        message,
-        status,
-        timestamp,
+        message, //文字內容
+        status, //樣式
+        timestamp, //id
       });
       this.removeMessageWithTiming(timestamp);
     },
@@ -49,7 +49,7 @@ export default {
     // 自定義名稱 'messsage:push'
     // message: 傳入參數
     // status: 樣式，預設值為 warning
-     vm.$bus.$on('message:push', (message, status = 'warning') => {
+     vm.$bus.$on('message:push', (message, status = 'warning') => {  //呼叫bus，並且用on的方式註冊一個message:push的方法，message是參數，status是狀態值
        vm.updateMessage(message, status);
      });
     // vm.$bus.$emit('message:push');
