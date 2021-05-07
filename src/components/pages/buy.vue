@@ -4,18 +4,18 @@
     <div class = "row mt-4">
       <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
         <div class="card border-0 shadow-sm">
-          <div style="height: 150px; background-size: cover; background-position: center">
+          <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundUmage: `url(${item.imageUrl})`}">
           </div>
           <div class="card-body">
-            <span class="badge badge-secondary float-right ml-2">分類</span>
+            <span class="badge badge-secondary float-right ml-2">{{item.category}}</span>
             <h5 class="card-title">
-              <a href="#" class="text-dark">標題</a>
+              <a href="#" class="text-dark">{{item.title}}</a>
             </h5>
-            <p class="card-text">內容</p>
+            <p class="card-text">{{item.content}}</p>
             <div class="d-flex justify-content-between align-items-baseline">
-              <!-- <div class="h5">2,800 元</div> -->
-              <del class="h6">原價 2,800 元</del>
-              <div class="h5">現在只要 1,400 元</div>
+              <div class="h5" v-if="!item.price">{{item.origin_price}}</div>
+              <del class="h6" v-if="item.price">{{item.origin_price}}</del>
+              <div class="h5" v-if="item.price">{{item.price}}</div>
             </div>
           </div>
           <div class="card-footer d-flex">
@@ -45,7 +45,7 @@ export default {
     methods:{
       getProducts() {
         const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products/all`;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/products`;
         vm.isLoading = true;
         this.$http.get(api).then((response) => {
             console.log(response);

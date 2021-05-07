@@ -32,11 +32,13 @@ export default new VueRouter({
       name: "管理",
       path: "/admin",
       component: Admin,
+      meta: { requiresAuth: true },
       children: [
         {
           path: "products",
           name: "產品項目管理",
           component: products,
+          meta: { requiresAuth: true },
         },
       ],
     },
