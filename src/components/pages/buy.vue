@@ -1,6 +1,49 @@
 <template>
   <div>
     <loading :active.sync="isLoading"></loading>
+
+    <b-navbar class="bg-brown" toggleable="lg" type="dark">
+      <b-navbar-brand href="#"><img src="@/assets/pic/luluflora.png" width="180"></b-navbar-brand>
+
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+
+      <b-collapse id="nav-collapse" is-nav>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown right>
+            <template slot="button-content">
+              <i class="fas fa-shopping-cart" style="color: #fbd191; font-size: 20px;"></i>
+            </template>
+            <b-form href="#">
+              <div class="menu-size px-4 py-3">
+                <h6>購物車內的商品</h6>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">項目</th>
+                      <th scope="col">數量</th>
+                      <th scope="col" class="text-end">金額</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in carts" :key="item.id">
+                      <td>{{item.title}}</td>
+                      <td>{{item.final_total}}</td>
+                    </tr>
+                    <tr>
+                      <td>總共{{final_total}}元</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a href="#" class="btn btn-brown w-100">結帳</a>
+              </div>
+            </b-form>
+          </b-nav-item-dropdown>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+
     <div class = "row mt-4">
       <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
         <div class="card border-0 shadow-sm">
@@ -20,7 +63,7 @@
           </div>
           <div class="card-footer d-flex">
             <button type="button" class="btn btn-outline-secondary btn-sm"
-            @click="get_single_Product(item)">
+            @click="get_single_Product(item.id)">
               <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
               查看更多
             </button>
@@ -55,15 +98,15 @@
               <div class="h4" v-if="product.price"> 現在只要 {{product.price}} 元</div>
             </div>
             <select name="" class="form-control mt-3" v-model="product.num">
-              <option value="1">
-                選購1件
+              <option :value="num" v-for="num in 10" :key="num">
+                選購 {{num}} {{product.unit}}
               </option>  
             </select>
             <div class="modal-footer">
               <div class="text-muted text-nowrap mr-3">
-                小計 <strong>{{product.unm * product.price}}</strong> 元
+                小計 <strong>{{product.num * product.price}}</strong> 元
               </div>
-              <button type="button" class="btn btn-primary">
+              <button type="button" class="btn btn-primary" @click="addtoCart(product.id, product.num)">
                 加到購物車
               </button>
             </div>
@@ -88,14 +131,14 @@ export default {
         };
     },
     methods:{
-      getProducts() {
+      getProducts(id) {
         const vm = this;
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-        vm.status.loadingItem = id;
+        vm.isloading = true;
         this.$http.get(api).then((response) => { 
             console.log(response);
             vm.products = response.data.products;
-            vm.status.loadingItem = '';
+            vm.isloading = false;
         });
       },
       get_single_Product(id) {
@@ -114,19 +157,49 @@ export default {
         vm.status.loadingItem = id;
         const cart ={
           product_id: id,
-          qty
-
-        }
+          qty,
+        };
         this.$http.post(api,{ data: cart}).then((response) => {
             vm.status.loadingItem = '';
+            vm.getCart();
+            $('#productModal').modal('hide');
+        });
+      },
+      getCart(){
+        const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+        vm.isloading = true;
+        this.$http.get(api).then((response) => { 
+            console.log(response);
+            vm.isloading = false;
         });
       },
     },
     created() {
         this.getProducts();
+        this.getCart();
     },
 };    
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap/dist/css/bootstrap.css";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
+
+  .menu-size{
+    width: 500px;
+    height: 500px;
+  }
+
+  .btn-brown{
+    color: #e1dbd1;
+    background-color: #42302d;
+  }
+
+  .btn-brown:hover{
+    color: #42302d;
+    background-color: #e1dbd1;
+    border-color: #42302d;
+  }
 </style>
