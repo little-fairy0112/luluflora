@@ -109,16 +109,13 @@
                 小計 <strong>{{product.num * product.price}}</strong> 元
               </div>
             </div>
-            <div class="input-group mb-3 input-group-sm">
-                <input type="text" class="form-control" placeholder="請輸入優惠碼">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button">使用優惠碼</button>
-                </div>
-              </div>
-              <button type="button" class="btn btn-primary" @click="addtoCart(product.id, product.num)">
-                加到購物車
-              </button>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="輸入優惠碼">
+              <button class="btn btn-outline-secondary" type="button" id="button-addon2">使用優惠碼</button>
             </div>
+            <button type="button" class="btn btn-primary" @click="addtoCart(product.id, product.num)">
+              加到購物車
+            </button>
           </div>
         </div>
       </div>  
