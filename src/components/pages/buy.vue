@@ -20,22 +20,24 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">項目</th>
-                      <th scope="col">數量</th>
+                      <th scope="col" width="30">#</th>
+                      <th scope="col" width="180">項目</th>
+                      <th scope="col" width>數量</th>
                       <th scope="col" class="text-end">金額</th>
+                      <th scope="col"></th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="item in carts" :key="item.id">
-                      <td>{{item.title}}</td>
-                      <td>{{item.final_total}}</td>
-                    </tr>
-                    <tr>
-                      <td>總共{{final_total}}元</td>
+                    <tr v-for="(item, index) in carts" :key="item.id">
+                      <td>{{index+1}}</td>
+                      <td>{{item.product.title}}</td>
+                      <td>{{item.qty}}</td>
+                      <td>{{item.final_total | currency}}</td>
+                      <td><button type="button" class="btn btn-outline-danger" @click="removeCartItem(item.id)"><i class="far fa-trash-alt"></i></button></td>
                     </tr>
                   </tbody>
                 </table>
+                <div class="text-end font-size-20 pb-3">小計 <strong class="text-danger">{{final_total | currency}}</strong> 元</div>
                 <a href="#" class="btn btn-brown w-100">結帳</a>
               </div>
             </b-form>
@@ -106,6 +108,13 @@
               <div class="text-muted text-nowrap mr-3">
                 小計 <strong>{{product.num * product.price}}</strong> 元
               </div>
+            </div>
+            <div class="input-group mb-3 input-group-sm">
+                <input type="text" class="form-control" placeholder="請輸入優惠碼">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button">使用優惠碼</button>
+                </div>
+              </div>
               <button type="button" class="btn btn-primary" @click="addtoCart(product.id, product.num)">
                 加到購物車
               </button>
@@ -124,6 +133,8 @@ export default {
         return {
             products: [],
             product: {},
+            carts:[],
+            final_total: NaN,
             status: {
               loadingItem: '',  //判斷目前畫面上是哪一個元素正在讀取中
             },
@@ -172,6 +183,17 @@ export default {
         this.$http.get(api).then((response) => { 
             console.log(response);
             vm.isloading = false;
+            vm.carts = response.data.data.carts;
+            vm.final_total = response.data.data.final_total;
+        });
+      },
+      removeCartItem(id){
+        const vm = this;
+        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
+        vm.isloading = true;
+        this.$http.delete(api).then(() => { 
+          vm.getCart();//刪除該筆資料後，重新取得更新後的購物車內容
+          vm.isloading = false;
         });
       },
     },
@@ -189,7 +211,6 @@ export default {
 
   .menu-size{
     width: 500px;
-    height: 500px;
   }
 
   .btn-brown{
@@ -201,5 +222,9 @@ export default {
     color: #42302d;
     background-color: #e1dbd1;
     border-color: #42302d;
+  }
+
+  .font-size-20{
+    font-size: 20px;
   }
 </style>
