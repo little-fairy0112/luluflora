@@ -8,6 +8,7 @@ import Buy from "@/components/pages/buy";
 import Bonquet from "@/components/pages/bonquet";
 import Potted_Flower from "@/components/pages/potted_flower";
 import Wreath from "@/components/pages/wreath";
+import Pay from "@/components/pages/pay";
 
 
 Vue.use(VueRouter);
@@ -64,6 +65,11 @@ export default new VueRouter({
           component: Wreath,
         },
       ],
+    },
+    {
+      path:"/pay",
+      name:"結帳",
+      component: Pay,
     },
   ],
 });

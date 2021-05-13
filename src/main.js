@@ -18,6 +18,8 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'
 import 'bootstrap';
 import currencyFilter from '@/filters/currency';
 import '@/bus.js';
+import VeeValidate from 'vee-validate';
+import { ValidationProvider } from 'vee-validate';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
@@ -25,6 +27,7 @@ Vue.component('Loading', Loading);
 Vue.filter('currency', currencyFilter);
 Vue.use(BootstrapVue);
 Vue.use(IconsPlugin);
+Vue.use(VeeValidate);
 library.add(faUserSecret);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
@@ -34,6 +37,12 @@ library.add(faSeedling);
 library.add(faClock);
 library.add(faPhone);
 library.add(faMapMarkerAlt);
+Vue.component('ValidationProvider', ValidationProvider);
+export default {
+  components: {
+    ValidationProvider
+  }
+};
 
 axios.defaults.withCredentials = true;
 
