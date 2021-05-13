@@ -38,6 +38,10 @@
                   </tbody>
                 </table>
                 <div class="text-end font-size-20 pb-3">小計 <strong class="text-danger">{{final_total | currency}}</strong> 元</div>
+                <div class="input-group mb-3">
+                  <input type="text" class="form-control" placeholder="輸入優惠碼">
+                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">使用優惠碼</button>
+                </div>
                 <a href="#" class="btn btn-brown w-100">結帳</a>
               </div>
             </b-form>
@@ -108,10 +112,6 @@
               <div class="text-muted text-nowrap mr-3">
                 小計 <strong>{{product.num * product.price}}</strong> 元
               </div>
-            </div>
-            <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="輸入優惠碼">
-              <button class="btn btn-outline-secondary" type="button" id="button-addon2">使用優惠碼</button>
             </div>
             <button type="button" class="btn btn-primary" @click="addtoCart(product.id, product.num)">
               加到購物車
