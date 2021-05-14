@@ -15,15 +15,15 @@
             <form class="col-md-6" @submit.prevent="createOrder">
                 <div class="form-group">
                     <label for="useremail">Email</label>
-                    <input type="email" class="form-control" name="email" id="useremail"
-                    v-model="form.user.email" placeholder="請輸入 Email" required>
-                    <span class="text-danger"></span>
+                    <input type="email" class="form-control" name="email" placeholder="請輸入 Email"
+                    v-model="form.user.email" v-validate="'required|email'">
+                    <span class="text-danger" v-if= "errors.has('email')"></span>
                 </div>
   
                 <div class="form-group">
                     <label for="username">收件人姓名</label>
                     <input type="text" class="form-control" name="name" placeholder="輸入姓名"
-                    v-model="form.user.name"  v-validate="'required'">
+                    v-model="form.user.name" v-validate="'required'" :class="{ 'is-invalid': errors.has('name') }">
                     <span class="text-danger" v-if= "errors.has('name')">此欄位不得為空</span>
                 </div>
   
