@@ -16,27 +16,27 @@
                 <div class="form-group">
                     <label for="useremail">Email</label>
                     <input type="email" class="form-control" name="email" placeholder="請輸入 Email"
-                    v-model="form.user.email" v-validate="'required|email'">
+                    v-model="form.user.email" v-validate="'required|email'" required>
                     <span class="text-danger" v-if= "errors.has('email')"></span>
                 </div>
   
                 <div class="form-group">
                     <label for="username">收件人姓名</label>
                     <input type="text" class="form-control" name="name" placeholder="輸入姓名"
-                    v-model="form.user.name" v-validate="'required'" :class="{ 'is-invalid': errors.has('name') }">
+                    v-model="form.user.name" v-validate="'required'" :class="{ 'is-invalid': errors.has('name') }" required>
                     <span class="text-danger" v-if= "errors.has('name')">此欄位不得為空</span>
                 </div>
   
                 <div class="form-group">
                     <label for="usertel">收件人電話</label>
-                    <input type="tel" class="form-control" id="usertel" v-model="form.user.tel" placeholder="請輸入電話">
+                    <input type="tel" class="form-control" id="usertel" v-model="form.user.tel" placeholder="請輸入電話" required>
                 </div>
   
                 <div class="form-group">
                     <label for="useraddress">收件人地址</label>
                     <input type="text" class="form-control" name="address" id="useraddress" v-model="form.user.address"
-                        placeholder="請輸入地址">
-                    <span class="text-danger">地址欄位不得留空</span>
+                        placeholder="請輸入地址" required>
+                    <span class="text-danger"></span>
                 </div>
   
                 <div class="form-group">
@@ -74,10 +74,16 @@
                 const vm = this;
                 const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
                 const order = vm.form;
-                vm.isloading = true;
-                this.$http.post(api, { data:order }).then((response) => { 
+                //vm.isloading = true;
+                this.$validator.validate().then((result) => {
+                if (result) {
+                    this.$http.post(api, { data:order }).then((response) => { 
                     console.log('訂單建立成功',response);
                     vm.isloading = false;
+                    });
+                } else {
+                    console.log('必填欄位未完全填寫 訂單建立失敗');
+                }
                 });
             }
         }
