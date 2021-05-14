@@ -22,8 +22,8 @@
   
                 <div class="form-group">
                     <label for="username">收件人姓名</label>
-                    <input type="text" class="form-control" name="name" id="username"
-                    v-model="form.user.name"  v-validate="'required'" placeholder="輸入姓名">
+                    <input type="text" class="form-control" name="name" placeholder="輸入姓名"
+                    v-model="form.user.name"  v-validate="'required'">
                     <span class="text-danger" v-if= "errors.has('name')">此欄位不得為空</span>
                 </div>
   
