@@ -42,7 +42,7 @@
                   <input type="text" class="form-control" placeholder="輸入優惠碼">
                   <button class="btn btn-outline-secondary" type="button" id="button-addon2">使用優惠碼</button>
                 </div>
-                <router-link to="/pay" class="btn btn-brown w-100">結帳</router-link>
+                <router-link to="/order" class="btn btn-brown w-100">結帳</router-link>
               </div>
             </b-form>
           </b-nav-item-dropdown>
