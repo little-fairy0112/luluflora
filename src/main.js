@@ -22,7 +22,6 @@ import VeeValidate from 'vee-validate';
 import zhTW from 'vee-validate/dist/locale/zh_TW';
 import VueI18n from 'vue-i18n';
 
-Vue.use(VeeValidate);
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.component('Loading', Loading);
@@ -39,7 +38,6 @@ library.add(faClock);
 library.add(faPhone);
 library.add(faMapMarkerAlt);
 VeeValidate.Validator.localize('zhTW', zhTW);
-Vue.use(VeeValidate);
 
 axios.defaults.withCredentials = true;
 

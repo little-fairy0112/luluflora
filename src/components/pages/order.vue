@@ -1,6 +1,5 @@
 <template>
     <div>
-        <loading :active.sync="isLoading"></loading>
 
         <b-navbar class="bg-brown" toggleable="lg" type="dark">
             <b-navbar-brand class="padding-none" href="#"><img src="@/assets/pic/luluflora.png" width="180"></b-navbar-brand>
@@ -11,88 +10,73 @@
             </b-collapse>
         </b-navbar>
 
-        <div class="my-5 row justify-content-center">
-            <form class="col-md-6" @submit.prevent="createOrder">
-                <div class="form-group">
-                    <label for="useremail">Email</label>
-                    <input type="email" class="form-control" name="email" placeholder="請輸入 Email"
-                    v-model="form.user.email" v-validate="'required|email'" required>
-                    <span class="text-danger" v-if= "errors.has('email')"></span>
+        <div class="container main-content my-5">
+            <h1 class="text-center my-3 text-secondary">結帳流程</h1>
+            <div class="my-5 form-row d-flex text-center">
+                <div class="col-12 col-sm">
+                    <div class="alert alert-brown alert-rounded" role="alert">
+                        1. 輸入訂購人資訊
+                    </div>
                 </div>
-  
-                <div class="form-group">
-                    <label for="username">收件人姓名</label>
-                    <input type="text" class="form-control" name="name" placeholder="輸入姓名"
-                    v-model="form.user.name" v-validate="'required'" :class="{ 'is-invalid': errors.has('name') }" required>
-                    <span class="text-danger" v-if= "errors.has('name')">此欄位不得為空</span>
+                <div class="col-12 col-sm">
+                    <div class="alert alert-light alert-rounded" role="alert">
+                        2. 金流付款
+                    </div>
                 </div>
-  
-                <div class="form-group">
-                    <label for="usertel">收件人電話</label>
-                    <input type="tel" class="form-control" id="usertel" v-model="form.user.tel" placeholder="請輸入電話" required>
+                <div class="col-12 col-sm">
+                    <div class="alert alert-light alert-rounded" role="alert">
+                        3. 完成
+                    </div>
                 </div>
-  
-                <div class="form-group">
-                    <label for="useraddress">收件人地址</label>
-                    <input type="text" class="form-control" name="address" id="useraddress" v-model="form.user.address"
-                        placeholder="請輸入地址" required>
-                    <span class="text-danger"></span>
-                </div>
-  
-                <div class="form-group">
-                    <label for="comment">留言</label>
-                    <textarea name="" id="comment" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
-                </div>
-                <div class="text-right">
-                    <button class="btn btn-danger">送出訂單</button>
-                </div>
-            </form>
+            </div>
         </div>
+        
+        <main>
+            <router-view></router-view>
+        </main>
     </div>
 </template>
 
-<script>
-    import $ from 'jquery';
 
-    export default {
-        data(){
-            return {
-                isLoading: false,
-                form: {
-                    user:{
-                        name:'',
-                        email:'',
-                        tel:'',
-                        address:'',
-                    },
-                    message:'',
-                },
-            };
-        },
-        methods:{
-            createOrder(){
-                const vm = this;
-                const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/order`;
-                const order = vm.form;
-                //vm.isloading = true;
-                this.$validator.validate().then((result) => {
-                if (result) {
-                    this.$http.post(api, { data:order }).then((response) => { 
-                    console.log('訂單建立成功',response);
-                    if(response.data.success){
-                        vm.$router.push(`/pay/${response.data.orderId}`) //用vue router轉換頁面
-                    }
-                    vm.isloading = false;
-                    });
-                } else {
-                    console.log('必填欄位未完全填寫 訂單建立失敗');
-                }
-                });
-            }
-        }
+<style scoped>
+    .bg-brown{
+        background-color: #42302d;
     }
-</script>
 
-<style>
+    .btn-cart{
+        background-color: transparent;
+        position: relative;
+    }
+
+    .btn-cart .badge{
+        position: absolute;
+        top: -5px;
+        right: -1px;
+    }
+
+    .btn-brown{
+        color:  #e1dbd1;
+        background-color: #42302d;
+    }
+
+    .dropdown-menu-end{
+        right:0;
+        left: auto;
+    }
+
+    .bg-cover{
+        height: 400px;
+        width: 100%;
+        background-size: cover;
+        background-position: center center;
+    }
+
+    .alert-rounded{
+        border-radius: 50px;
+    }
+
+    .alert-brown{
+        background-color: #A39480;
+    }
 
 </style>

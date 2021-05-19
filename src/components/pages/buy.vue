@@ -126,78 +126,78 @@
 <script>
 import $ from 'jquery';
 export default {
-    data () {
-        return {
-            products: [],
-            product: {},
-            carts:[],
-            final_total: NaN,
-            status: {
-              loadingItem: '',  //判斷目前畫面上是哪一個元素正在讀取中
-            },
-            isLoading: false,
-        };
+  data () {
+    return {
+      products: [],
+      product: {},
+      carts:[],
+      final_total: NaN,
+      status: {
+        loadingItem: '',  //判斷目前畫面上是哪一個元素正在讀取中
+      },
+      isLoading: false,
+    };
+  },
+  methods:{
+    getProducts(id) {
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
+      vm.isloading = true;
+      this.$http.get(api).then((response) => { 
+        console.log(response);
+        vm.products = response.data.products;
+        vm.isloading = false;
+      });
     },
-    methods:{
-      getProducts(id) {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`;
-        vm.isloading = true;
-        this.$http.get(api).then((response) => { 
-            console.log(response);
-            vm.products = response.data.products;
-            vm.isloading = false;
-        });
-      },
-      get_single_Product(id) {
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
-        vm.status.loadingItem = id;
-        this.$http.get(api).then((response) => {
-            vm.product = response.data.product;
-            $('#productModal').modal('show');
-            vm.status.loadingItem = '';
-        });
-      },
-      addtoCart(id, qty = 1){ //如果沒有帶入qty，就會使qty預設值為1
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        vm.status.loadingItem = id;
-        const cart ={
-          product_id: id,
-          qty,
-        };
-        this.$http.post(api,{ data: cart}).then((response) => {
-            vm.status.loadingItem = '';
-            vm.getCart();
-            $('#productModal').modal('hide');
-        });
-      },
-      getCart(){
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
-        vm.isloading = true;
-        this.$http.get(api).then((response) => { 
-            console.log(response);
-            vm.isloading = false;
-            vm.carts = response.data.data.carts;
-            vm.final_total = response.data.data.final_total;
-        });
-      },
-      removeCartItem(id){
-        const vm = this;
-        const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
-        vm.isloading = true;
-        this.$http.delete(api).then(() => { 
-          vm.getCart();//刪除該筆資料後，重新取得更新後的購物車內容
-          vm.isloading = false;
-        });
-      },
+    get_single_Product(id) {
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/product/${id}`;
+      vm.status.loadingItem = id;
+      this.$http.get(api).then((response) => {
+        vm.product = response.data.product;
+        $('#productModal').modal('show');
+        vm.status.loadingItem = '';
+      });
     },
-    created() {
-        this.getProducts();
-        this.getCart();
+    addtoCart(id, qty = 1){ //如果沒有帶入qty，就會使qty預設值為1
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      vm.status.loadingItem = id;
+      const cart ={
+        product_id: id,
+        qty,
+      };
+      this.$http.post(api,{ data: cart}).then((response) => {
+        vm.status.loadingItem = '';
+        vm.getCart();
+        $('#productModal').modal('hide');
+      });
     },
+    getCart(){
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart`;
+      vm.isloading = true;
+      this.$http.get(api).then((response) => { 
+        console.log(response);
+        vm.isloading = false;
+        vm.carts = response.data.data.carts;
+        vm.final_total = response.data.data.final_total;
+      });
+    },
+    removeCartItem(id){
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`;
+      vm.isloading = true;
+      this.$http.delete(api).then(() => { 
+        vm.getCart();//刪除該筆資料後，重新取得更新後的購物車內容
+        vm.isloading = false;
+      });
+    },
+  },
+  created() {
+    this.getProducts();
+    this.getCart();
+  },
 };    
 </script>
 
