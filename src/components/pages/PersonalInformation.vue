@@ -33,10 +33,6 @@
                                     </tbody>
                                 </table>
                                 <div class="text-end font-size-20 pb-3">小計 <strong class="text-danger">{{final_total | currency}}</strong> 元</div>
-                                <div class="input-group mb-3">
-                                    <input type="text" class="form-control" placeholder="輸入優惠碼">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">使用優惠碼</button>
-                                </div>
                             </div>
                         </b-card-text>
                     </b-card-body>
