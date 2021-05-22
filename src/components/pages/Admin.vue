@@ -4,7 +4,7 @@
 
         <nav class="navbar navbar-dark bg-brown">
             <div class="container-fluid">
-                <a class="navbar-brand padding-none" href="#">
+                <a class="navbar-brand padding-none" to="/">
                     <img src="@/assets/pic/luluflora.png" width="180">
                 </a>
                 <div>
@@ -14,23 +14,25 @@
         </nav>
         <div class="container-fluid">
             <div class="row">
-                <nav id="sidebarMenu" class="bg-lightbrown col-md-3 col-lg-2 d-md-block sidebar collapse padding-top-none">
+                <nav id="sidebarMenu" class="bg-light col-md-3 col-lg-2 d-md-block sidebar collapse padding-top-none">
                     <div class="position-sticky pt-3">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <router-link to="/admin/product">
+                                <router-link to="/admin">
+                                    <span data-feather="product"></span>
+                                    <i class="fas fa-box"></i>
                                     商品列表
                                 </router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <router-link to="/admin/ordermanagement">
                                     <span data-feather="order"></span>
-                                    <i class="fas fa-shopping-cart"></i>
+                                    <i class="fas fa-list-ul"></i>
                                     訂單列表
-                                </a>
+                                </router-link>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" to="">
                                     <span data-feather="coupon"></span>
                                     <i class="fas fa-ticket-alt"></i>
                                     優惠券
@@ -101,7 +103,6 @@ export default{
 .bg-brown{
     background-color: #42302d;
 }
-
 
 </style>
 

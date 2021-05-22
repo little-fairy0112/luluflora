@@ -3,10 +3,9 @@
     <loading :active.sync="isLoading"></loading>
 
     <b-navbar class="bg-brown" toggleable="lg" type="dark">
-      <b-navbar-brand href="#"><img src="@/assets/pic/luluflora.png" width="180"></b-navbar-brand>
+      <b-navbar-brand to="/"><img src="@/assets/pic/luluflora.png" width="180"></b-navbar-brand>
 
       <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
-
       <b-collapse id="nav-collapse" is-nav>
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
@@ -50,7 +49,7 @@
       </b-collapse>
     </b-navbar>
 
-    <div class = "row mt-4">
+    <div class = "row pt-4 px-4 bg-lightbrown">
       <div class="col-md-4 mb-4" v-for="item in products" :key="item.id">
         <div class="card border-0 shadow-sm">
           <div style="height: 150px; background-size: cover; background-position: center" :style="{backgroundImage: `url(${item.imageUrl})`}">

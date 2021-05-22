@@ -9,6 +9,8 @@ import Order from "@/components/pages/order";
 import Personal from "@/components/pages/PersonalInformation";
 import Pay from "@/components/pages/pay";
 import Finish from "@/components/pages/finish";
+import OrderManagement from "@/components/pages/orderManagement";
+
 
 
 Vue.use(VueRouter);
@@ -36,9 +38,15 @@ export default new VueRouter({
       meta: { requiresAuth: true },
       children: [
         {
-          path: "products",
+          path: "",
           name: "產品項目管理",
           component: products,
+          meta: { requiresAuth: true },
+        },
+        {
+          path:"ordermanagement",
+          name:"訂單管理",
+          component: OrderManagement,
           meta: { requiresAuth: true },
         },
       ],
@@ -51,7 +59,6 @@ export default new VueRouter({
     },
     {
       path:"/order",
-      name:"訂購人資料與訂單確認",
       component: Order,
       children: [
         {
@@ -60,13 +67,13 @@ export default new VueRouter({
           component: Personal,
         },
         {
-          path:"pay",
+          path:"pay/:orderId",
           name: "付款",
           component: Pay,
         },
         {
           path:"finish",
-          name: "訂購人資料",
+          name:"完成購買",
           component: Finish,
         },
       ],

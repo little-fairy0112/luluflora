@@ -14,26 +14,6 @@
           <span class="navbar-toggler-icon">
           </span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-          <ul class="navbar-nav">
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                經典款式
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <li>
-                  <router-link to="/buy/bonquet" class="dropdown-item" href="#">花束</router-link>
-                </li>
-                <li>
-                  <router-link to="/buy/potted-flower" class="dropdown-item" href="#">植栽</router-link>
-                </li>
-                <li>
-                  <router-link to="/buy/wreath" class="dropdown-item" href="#">花環</router-link>
-                </li>
-              </ul>
-            </li>
-          </ul>  
-        </div>
       </div>
     </nav>
     <div>
@@ -181,7 +161,7 @@
     </section>
 
 
-    <section class="py-5 bg-light">
+    <section class="py-5 bg-lightbrown">
       <div class="container">
         <div class="row">
           <div class="col-md-6">

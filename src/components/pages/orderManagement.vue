@@ -1,9 +1,6 @@
 <template>
     <div>
         <loading :active.sync="isLoading"></loading>
-        <div class="text-right mt-4">
-            <button class="btn btn-primary" @click="openModal(true)">建立新的產品</button>
-        </div>
         <table class="table table-striped mt-4">
             <thead>
                 <tr>
@@ -12,15 +9,15 @@
                     <th width="120">原價</th>
                     <th width="120">售價</th>
                     <th width="90">是否啟用</th>
-                    <th width="80">編輯</th>
+                    <th width="120">編輯</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(item) in products" :key="item.id">
                 <td>{{ item.category }}</td>
                 <td>{{ item.title }}</td>
-                <td class="text-right">{{ item.origin_price | currency}}</td>
-                <td class="text-right">{{ item.price | currency}}</td>
+                <td>{{ item.origin_price | currency}}</td>
+                <td>{{ item.price | currency}}</td>
                 <td>
                     <span v-if="item.is_enabled" class="text-success">啟用</span>
                     <span v-else>未啟用</span>
@@ -28,7 +25,7 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-                        <button class="btn btn-outline-danger btn-sm" @click="openDeleteProductModal(item.id)">刪除</button>
+                        <button class="btn btn-outline-danger btn-sm" @click="deleteProduct(item.id)">刪除</button>
                     </div>
                 </td>
                 </tr>
@@ -165,7 +162,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-danger" @click="deleteProduct(this.delete)">確認刪除</button>
+                        <button type="button" class="btn btn-danger">確認刪除</button>
                     </div>
                 </div>
             </div>
@@ -184,7 +181,6 @@ export default {
             tempProduct: {}, // 即將要送出的欄位內容
             isNew: false,
             isLoading: false,
-            delete: '',
             status: {
                 fileUploading: false,
             }
@@ -214,11 +210,6 @@ export default {
                 this.isNew = false;
             }
             $('#productModal').modal('show');
-        },
-        openDeleteProductModal(id){
-            this.delete = id;
-            console.log(this.delete);
-            $('#delProductModal').modal('show');
         },
         updateProduct() {
             let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`;
@@ -271,7 +262,7 @@ export default {
             this.$http.delete(api).then(() => { 
                 vm.getProducts(); //刪除該筆資料後，重新取得更新後的購物車內容
                 vm.isloading = false;
-            });
+      });
         },
     },
     created() {
