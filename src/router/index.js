@@ -32,7 +32,6 @@ export default new VueRouter({
       component: Login, //對應的元件
     },
     {
-      name: "管理",
       path: "/admin",
       component: Admin,
       meta: { requiresAuth: true },
