@@ -28,7 +28,7 @@
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
-                        <button class="btn btn-outline-danger btn-sm" @click="openDeleteProductModal(item.id)">刪除</button>
+                        <button class="btn btn-outline-danger btn-sm" @click="openDeleteProductModal(item)">刪除</button>
                     </div>
                 </td>
                 </tr>
@@ -165,7 +165,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-danger" @click="deleteProduct(this.delete)">確認刪除</button>
+                        <button type="button" class="btn btn-danger" @click="deleteProduct()">確認刪除</button>
                     </div>
                 </div>
             </div>
@@ -184,7 +184,6 @@ export default {
             tempProduct: {}, // 即將要送出的欄位內容
             isNew: false,
             isLoading: false,
-            delete: '',
             status: {
                 fileUploading: false,
             }
@@ -215,9 +214,8 @@ export default {
             }
             $('#productModal').modal('show');
         },
-        openDeleteProductModal(id){
-            this.delete = id;
-            console.log(this.delete);
+        openDeleteProductModal(item){
+            this.tempProduct = item; 
             $('#delProductModal').modal('show');
         },
         updateProduct() {
@@ -264,9 +262,9 @@ export default {
                 }
             });
         },
-        deleteProduct(id){
+        deleteProduct(){
             const vm = this;
-            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${id}`;
+            const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
             vm.isloading = true;
             this.$http.delete(api).then(() => { 
                 vm.getProducts(); //刪除該筆資料後，重新取得更新後的購物車內容

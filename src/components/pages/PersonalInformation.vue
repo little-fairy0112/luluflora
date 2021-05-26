@@ -37,7 +37,7 @@
                                         <tr>
                                         <th scope="col" width="30">#</th>
                                         <th scope="col" width="180">項目</th>
-                                        <th scope="col" width>數量</th>
+                                        <th scope="col">數量</th>
                                         <th scope="col" class="text-end">金額</th>
                                         <th scope="col"></th>
                                         </tr>
