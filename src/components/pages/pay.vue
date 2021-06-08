@@ -1,7 +1,7 @@
 <template>
-    <div>        
+    <div class="bg-lightbrown">        
         <loading :active.sync="isLoading"></loading>
-        <div class="container main-content my-5">
+        <div class="container main-content py-5">
             <h1 class="text-center my-3 text-secondary">結帳流程</h1>
             <div class="my-5 form-row d-flex text-center">
                 <div class="col-12 col-sm">
@@ -22,9 +22,9 @@
             </div>
         </div>
         <div>
-            <div class="my-5 row justify-content-center">
+            <div class="py-5 row justify-content-center">
                 <form class="col-md-6" @submit.prevent="payOrder">
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead>
                             <th>品名</th>
                             <th>數量</th>
@@ -45,7 +45,7 @@
                         </tfoot>
                     </table>
 
-                    <table class="table">
+                    <table class="table table-striped">
                         <tbody>
                             <tr>
                                 <th width="100">Email</th>
@@ -73,7 +73,7 @@
                         </tbody>
                     </table>
                     <div class="text-right" v-if="order.is_paid === false">
-                        <button class="btn btn-danger">確認付款去</button>
+                        <button class="btn btn-outline-style btn-danger">確認付款去</button>
                     </div>
                 </form>
             </div>

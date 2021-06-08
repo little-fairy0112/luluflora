@@ -1,7 +1,7 @@
 <template>
-    <div>        
+    <div class="bg-lightbrown">        
         <loading :active.sync="isLoading"></loading>
-        <div class="container main-content my-5">
+        <div class="container main-content py-5">
             <h1 class="text-center my-3 text-secondary">結帳流程</h1>
             <div class="my-5 form-row d-flex text-center">
                 <div class="col-12 col-sm">
@@ -27,7 +27,7 @@
                 <b-card-header header-tag="header" class="p-1" role="tab">
                     <b-button block v-b-toggle.accordion-1>查看訂單內容</b-button>
                 </b-card-header>
-                <b-collapse id="accordion-1" visible accordion="my-accordion" role="tabpanel">
+                <b-collapse id="accordion-1" accordion="my-accordion" role="tabpanel">
                     <b-card-body>
                         <b-card-text>
                             <div class="menu-size px-4 py-3">
@@ -35,19 +35,18 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                        <th scope="col" width="30">#</th>
-                                        <th scope="col" width="180">項目</th>
-                                        <th scope="col">數量</th>
-                                        <th scope="col" class="text-end">金額</th>
-                                        <th scope="col"></th>
+                                            <th scope="col" width="80">#</th>
+                                            <th scope="col" width="500">項目</th>
+                                            <th scope="col" width="300">數量</th>
+                                            <th scope="col">金額</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, index) in carts" :key="item.id">
-                                        <td>{{index+1}}</td>
-                                        <td>{{item.product.title}}</td>
-                                        <td>{{item.qty}}</td>
-                                        <td>{{item.final_total | currency}}</td>
+                                            <td>{{index+1}}</td>
+                                            <td>{{item.product.title}}</td>
+                                            <td>{{item.qty}}</td>
+                                            <td>{{item.final_total | currency}}</td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -59,7 +58,7 @@
             </b-card>
         </div>
 
-        <div class="mb-5 row justify-content-center">
+        <div class="pb-5 row justify-content-center">
             <form class="col-md-6" @submit.prevent="createOrder">
                 <div class="form-group">
                     <label for="useremail">Email</label>
@@ -94,7 +93,7 @@
                     <textarea name="" id="comment" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
                 </div>
                 <div class="text-right">
-                    <button class="btn btn-danger" to="/order/pay">下一步</button>
+                    <button class="btn btn-outline-style" to="/order/pay">下一步</button>
                 </div>
             </form>
         </div>
@@ -196,6 +195,12 @@ export default {
 
     .alert-brown{
         background-color: #A39480;
+    }
+
+    button {
+        padding: none !important;
+        color: #e1dbd1;
+        background-color: #42302d;
     }
 
 </style>

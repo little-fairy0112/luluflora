@@ -1,6 +1,6 @@
 <template>
-    <div>        
-        <div class="container main-content my-5">
+    <div  class="bg-lightbrown">        
+        <div class="container main-content py-5">
             <h1 class="text-center my-3 text-secondary">結帳流程</h1>
             <div class="my-5 form-row d-flex text-center">
                 <div class="col-12 col-sm">
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="container my-5">
+        <div class="container py-4">
             <div class="row d-flex ">
                 <div class="col-4"></div>
                 <div class="col-4 text-center">

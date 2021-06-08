@@ -24,7 +24,6 @@
                 </tbody>
             </table>
         </div>
-
         
         <div class="modal fade" id="orderModal" tabindex="-1" role="dialog"
         aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -47,26 +46,31 @@
                                 </div>
 
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">
+                                    <div class="form-group form-col-6">
                                         <label for="category">訂單內容</label>
-                                        <input type="text" class="form-control" v-model="tempProduct.products" id="orderContent">
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="price">訂單金額</label>
-                                        <input type="number" class="form-control" v-model="tempProduct.total" id="orderPrice">
+                                        <div v-for="item in tempProduct.products" :key="item.id">
+                                            <label>項目</label>
+                                            <input type="text" class="form-control" v-model="tempProduct.products[item.id].product.title" id="orderItem">
+                                        </div>
+                                        <div>
+                                            <label>數量</label>
+                                            <input type="number" class="form-control" v-model=" tempProduct.products[item.id].qty" id="orderQty">
+                                        </div>
                                     </div>
                                 </div>
                                 <hr>
                                 <div class="form-group">
-                                    <label for="origin_price">訂購人資料</label>
-                                    <input type="text" class="form-control" v-model="tempProduct.user" id="orderName">
+                                    <div v-for="(item, id) in tempProduct.user" :key="id" id="orderInformation">
+                                        <label>{{id}}</label>
+                                        <input type="text" class="form-control" v-model="tempProduct.user[id]">
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" v-model="tempProduct.is_paid" id="is_paid">
-                                            <label class="form-check-label" for="is_paid">
-                                                是否付款
-                                            </label>
+                                        <label class="form-check-label" for="is_paid">
+                                            是否付款
+                                        </label>
                                     </div>
                                 </div>
                             </div>

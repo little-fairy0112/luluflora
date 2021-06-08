@@ -37,10 +37,6 @@
                   </tbody>
                 </table>
                 <div class="text-end font-size-20 pb-3">小計 <strong class="text-danger">{{final_total | currency}}</strong> 元</div>
-                <div class="input-group mb-3">
-                  <input type="text" class="form-control" placeholder="輸入優惠碼">
-                  <button class="btn btn-outline-secondary" type="button" id="button-addon2">使用優惠碼</button>
-                </div>
                 <router-link to="/order" class="btn btn-brown w-100">結帳</router-link>
               </div>
             </b-form>
@@ -61,9 +57,9 @@
             </h5>
             <p class="card-text">{{item.content}}</p>
             <div class="d-flex justify-content-between align-items-baseline">
-              <div class="h5" v-if="!item.price">{{item.origin_price}}</div>
-              <del class="h6" v-if="item.price">原價 {{item.origin_price}}</del>
-              <div class="h5" v-if="item.price">現在只要 {{item.price}}</div>
+              <div class="h5" v-if="(item.price == item.origin_price)"> $ {{item.price}}</div>
+              <del class="h6" v-if="!(item.price == item.origin_price)">原價 $ {{item.origin_price}}</del>
+              <div class="h5" v-if="!(item.price == item.origin_price)">現在只要 $ {{item.price}}</div>
             </div>
           </div>
           <div class="card-footer d-flex">
@@ -72,7 +68,7 @@
               <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
               查看更多
             </button>
-            <button type="button" class="btn btn-outline-danger btn-sm ml-auto"
+            <button type="button" class="btn btn-outline-style btn-sm ml-auto"
             @click="addtoCart(item.id)">
               <i class="fas fa-spinner fa-spin" v-if="status.loadingItem === item.id"></i>
               加到購物車
@@ -86,21 +82,21 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">{{ product.title}}</h5>
+            <h5 class="modal-title" id="exampleModalLabel">{{ product.title }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
-            <img :src="product.image" class="img-fluid" alt="">
+            <img :src="product.imageUrl" class="img-fluid" alt="">
             <blockquote class="blockquote mt-3">
               <p class="mb-0">{{product.content}}</p>
               <footer class="blockquote-footer text-right">{{product.description}}</footer>
             </blockquote>  
             <div class="d-flex justify-content-between align-items-baseline">
-              <div class="h4" v-if="!product.price">{{product.origin_price}} 元</div>
-              <div class="h6" v-if="product.price">原價 {{product.origin_price}} 元</div>
-              <div class="h4" v-if="product.price"> 現在只要 {{product.price}} 元</div>
+              <div class="h4" v-if="(product.price == product.origin_price)"> $ {{product.price}} </div>
+              <del class="h6" v-if="!(product.price == product.origin_price)">原價 $ {{product.origin_price}} 元</del>
+              <div class="h4" v-if="!(product.price == product.origin_price)"> 現在只要 $ {{product.price}} 元</div>
             </div>
             <select name="" class="form-control mt-3" v-model="product.num">
               <option :value="num" v-for="num in 10" :key="num">
@@ -222,5 +218,16 @@ export default {
 
   .font-size-20{
     font-size: 20px;
+  }
+
+  .btn-outline-style{
+    color: #e1dbd1;
+    background-color: #42302d;
+  }
+
+  .btn-outline-style:hover{
+    color: #42302d;
+    background-color: #e1dbd1;
+    border-color: #42302d;
   }
 </style>

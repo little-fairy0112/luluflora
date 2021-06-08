@@ -11,7 +11,6 @@
                     <th>產品名稱</th>
                     <th width="120">原價</th>
                     <th width="120">售價</th>
-                    <th width="90">是否啟用</th>
                     <th width="80">編輯</th>
                 </tr>
             </thead>
@@ -21,10 +20,6 @@
                 <td>{{ item.title }}</td>
                 <td class="text-right">{{ item.origin_price | currency}}</td>
                 <td class="text-right">{{ item.price | currency}}</td>
-                <td>
-                    <span v-if="item.is_enabled" class="text-success">啟用</span>
-                    <span v-else>未啟用</span>
-                </td>
                 <td>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button class="btn btn-outline-primary btn-sm" @click="openModal(false, item)">編輯</button>
@@ -128,15 +123,6 @@
                                     <label for="content">說明內容</label>
                                     <textarea type="text" class="form-control" v-model="tempProduct.content" id="content"
                                     placeholder="請輸入產品說明內容"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" v-model="tempProduct.is_enabled" :true-value="1" :false-value="0"
-                                        id="is_enabled">
-                                            <label class="form-check-label" for="is_enabled">
-                                                是否啟用
-                                            </label>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -268,6 +254,7 @@ export default {
             vm.isloading = true;
             this.$http.delete(api).then(() => { 
                 vm.getProducts(); //刪除該筆資料後，重新取得更新後的購物車內容
+                $('#delProductModal').modal('hide')
                 vm.isloading = false;
             });
         },

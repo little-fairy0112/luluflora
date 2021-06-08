@@ -11,8 +11,7 @@
           <img src="@/assets/pic/luluflora.png" width="180">
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon">
-          </span>
+          <span class="navbar-toggler-icon"></span>
         </button>
       </div>
     </nav>
@@ -88,7 +87,6 @@
           </template>
         </b-carousel-slide>
       </b-carousel>
-
     </div>
 
     <section class="bg-lightbrown py-5 text-brown">
@@ -119,7 +117,7 @@
       </div>
     </section>
 
-    <section class="container-fluid py-5 bg-light text-lightbrown position-relative">
+    <section class="container-fluid py-5 bg-light text-lightbrown position-relative padding-top-0">
       <div class="row">
         <div class="col-md-5 bg-cover position-absolute nopadding">
           <img
@@ -160,13 +158,11 @@
       </div>
     </section>
 
-
     <section class="py-5 bg-lightbrown">
       <div class="container">
         <div class="row">
           <div class="col-md-6">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.274905273171!2d121.55765031433127!3d25.05866998396082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAzJzMxLjIiTiAxMjHCsDMzJzM1LjQiRQ!5e0!3m2!1szh-TW!2stw!4v1616406120080!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy">
-            </iframe>
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.274905273171!2d121.55765031433127!3d25.05866998396082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjXCsDAzJzMxLjIiTiAxMjHCsDMzJzM1LjQiRQ!5e0!3m2!1szh-TW!2stw!4v1616406120080!5m2!1szh-TW!2stw" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
           </div>
 
           <div class="col-md-6 d-flex flex-column justify-content-between LeftSize">
@@ -308,6 +304,7 @@ export default {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
 
 @media (min-width: 768px) {
   .text-md-dark{
